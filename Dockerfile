@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM nvidia/cuda:11.2.0-cudnn8-devel-ubuntu20.04
 
 # Use New Zealand mirrors
 RUN sed -i 's/archive/nz.archive/' /etc/apt/sources.list
@@ -28,3 +28,7 @@ RUN apt install -y python3-dev python3-pip
 RUN pip3 install --upgrade pip
 COPY requirements.txt /root/requirements.txt
 RUN pip3 install -r /root/requirements.txt
+
+RUN pip3 install --upgrade "jax[cuda]" -f https://storage.googleapis.com/jax-releases/jax_releases.html
+RUN pip3 install jax[cuda11_cudnn805] -f https://storage.googleapis.com/jax-releases/jax_releases.html
+#RUN pip3 install jax[cuda11_cudnn82] -f https://storage.googleapis.com/jax-releases/jax_releases.html
